@@ -40,12 +40,20 @@ The framework used
     ```
  - Finally go to the following URL to the browse the application
 
-    [IP Manager](http://localhost:8081/website/)
+    [IP Manager](http://localhost:8081/website/dist/website/)
 
 ## Run APIs
 For API import the following Postman JSON file in the directory
 
 `ip-manager.json`
+
+## Build the web packages
+Please run the following command for the website to build from TS to JS
+
+```
+npx ng build --base-href http://localhost:8081/website/dist/website/
+```
+
 ## Run Tests
 
 For running the application tests
