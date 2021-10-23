@@ -16,3 +16,8 @@
 $router->get('/', function () use ($router) {
     return json_encode(["version" => $router->app->version()]);
 });
+
+
+$router->get('/register', function () {
+    dd("test");
+});
