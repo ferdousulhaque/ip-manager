@@ -69,4 +69,26 @@ class AuthController extends Controller
         event(new LoginEvent($request, AuditEnum::LOGIN_ACTIVITY, StatusEnum::SUCCESS));
         return $this->respondWithToken($token);
     }
+
+    /**
+     * Logout
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        Auth::logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(Auth::refresh());
+    }
 }

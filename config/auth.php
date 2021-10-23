@@ -19,5 +19,5 @@ return [
             'model' => \App\Models\User::class
         ]
     ],
-    'ttl' => 24 * 3600
+    'ttl' => 24 * 3600,
 ];
