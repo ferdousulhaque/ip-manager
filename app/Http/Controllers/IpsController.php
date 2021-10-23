@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\AuditEnum;
+use App\Enum\StatusEnum;
+use App\Events\IpEvent;
 use App\Http\Controllers\Requests\AddIpsRequest;
 use App\Http\Controllers\Requests\ModifyIpRequest;
 use App\Http\Services\IpOperations;
@@ -21,13 +24,14 @@ class IpsController extends Controller
     public function index(Request $request)
     {
         try {
-            dd(Ip::all());
+            $data = new IpOperations(new Ip);
 
             //return successful response
-            // return response()->json(['ip' => $add, 'message' => 'CREATED'], 201);
+            return response()->json(['ip' => $data->list(), 'message' => 'LISTED'], 201);
         } catch (\Exception $e) {
             //return error message
-            return response()->json(['message' => 'IP Addition Failed!'], 409);
+            dd($e->getMessage());
+            return response()->json(['message' => 'IP Listing Failed!'], 409);
         }
     }
 
@@ -49,9 +53,11 @@ class IpsController extends Controller
             $add = $ipService->add($request);
 
             //return successful response
+            event(new IpEvent($request, AuditEnum::ADD_IP_ACTIVITY, StatusEnum::SUCCESS));
             return response()->json(['ip' => $add, 'message' => 'CREATED'], 201);
         } catch (\Exception $e) {
             //return error message
+            event(new IpEvent($request, AuditEnum::ADD_IP_ACTIVITY, StatusEnum::FAIL));
             return response()->json(['message' => 'IP Addition Failed!'], 409);
         }
     }
@@ -73,9 +79,11 @@ class IpsController extends Controller
             $ipService = new IpOperations(new Ip);
             $modify = $ipService->modify($request, $id);
             //return successful response
+            event(new IpEvent($request, AuditEnum::MODIFY_IP_ACTIVITY, StatusEnum::SUCCESS));
             return response()->json(['updated' => $modify, 'message' => $modify ? "Updated" : "Failed"], $modify ? 200 : 204);
         } catch (\Exception $e) {
             //return error message
+            event(new IpEvent($request, AuditEnum::MODIFY_IP_ACTIVITY, StatusEnum::FAIL));
             return response()->json(['message' => 'IP Update Failed!'], 409);
         }
     }

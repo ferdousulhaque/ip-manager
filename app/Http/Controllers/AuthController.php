@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\AuditEnum;
+use App\Enum\StatusEnum;
+use App\Events\LoginEvent;
 use App\Http\Controllers\Requests\LoginRequest;
 use App\Http\Controllers\Requests\RegistrationRequest;
 use App\Http\Services\UserOperations;
@@ -60,9 +63,10 @@ class AuthController extends Controller
         $credentials = $request->only(['email', 'password']);
 
         if (!$token = Auth::attempt($credentials)) {
+            event(new LoginEvent($request, AuditEnum::LOGIN_ACTIVITY, StatusEnum::FAIL));
             return response()->json(['message' => 'Unauthorized'], 401);
         }
-
+        event(new LoginEvent($request, AuditEnum::LOGIN_ACTIVITY, StatusEnum::SUCCESS));
         return $this->respondWithToken($token);
     }
 }

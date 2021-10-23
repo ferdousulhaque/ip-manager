@@ -2,9 +2,8 @@
 
 namespace App\Http\Services;
 
-use App\Enum\AuditEnum;
+use App\Events\Event;
 use App\Models\Audit;
-use Illuminate\Http\Request;
 
 class AuditOperations
 {
@@ -21,13 +20,15 @@ class AuditOperations
     /**
      * Add Audit Logs
      *
-     * @param Request $request
+     * @param Event $event
      */
-    public function log(Request $request): void
+    public function log(Event $event): void
     {
-        $this->audit->change = json_encode(["changes" => 1]);
-        $this->audit->type = AuditEnum::LOGIN_ACTIVITY;
-        $this->audit->modify_by = auth()->user()->id;
+        $this->audit->change = json_encode($event->request->all());
+        $this->audit->type = $event->type;
+        $this->audit->status = $event->status;
+        $this->audit->ip = $event->request->ip();
+        $this->audit->modify_by = auth()->user()->id ?? 0;
 
         $this->audit->save();
     }

@@ -55,5 +55,6 @@ class IpOperations
      */
     public function list()
     {
+        return $this->ip->where('parent_id', auth()->user()->id)->get()->toArray();
     }
 }
