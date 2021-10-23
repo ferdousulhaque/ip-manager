@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Requests\LoginRequest;
 use App\Http\Controllers\Requests\RegistrationRequest;
 use App\Http\Services\UserOperations;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -41,5 +43,25 @@ class AuthController extends Controller
             //return error message
             return response()->json(['message' => 'User Registration Failed!'], 409);
         }
+    }
+
+    /**
+     * Login with JWT
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function login(Request $request)
+    {
+        //validate incoming request 
+        $this->validate($request, LoginRequest::rules());
+
+        $credentials = $request->only(['email', 'password']);
+
+        if (!$token = Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 }

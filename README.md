@@ -51,7 +51,8 @@ For API import the following Postman JSON file in the directory
 For running the application tests
 
 ```
-vendor/bin/phpunit . --color --testdox
+docker-compose exec php php artisan migrate:fresh --seed
+docker-compose exec php vendor/bin/phpunit ./tests --testdox --color
 ```
 
 ## License

@@ -13,9 +13,5 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return json_encode(["version" => $router->app->version()]);
-});
-
-
 $router->post('/register', 'AuthController@register');
+$router->post('/login', 'AuthController@login');
