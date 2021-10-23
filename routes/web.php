@@ -18,6 +18,4 @@ $router->get('/', function () use ($router) {
 });
 
 
-$router->get('/register', function () {
-    dd("test");
-});
+$router->post('/register', 'AuthController@register');
