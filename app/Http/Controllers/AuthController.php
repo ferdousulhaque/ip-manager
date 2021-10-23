@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Requests\LoginRequest;
 use App\Http\Controllers\Requests\RegistrationRequest;
 use App\Http\Services\UserOperations;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +35,7 @@ class AuthController extends Controller
         $this->validate($request, RegistrationRequest::rules());
 
         try {
-            $userService = new UserOperations;
+            $userService = new UserOperations(new User);
             $add = $userService->register($request);
 
             //return successful response

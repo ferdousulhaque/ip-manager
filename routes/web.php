@@ -15,3 +15,12 @@
 
 $router->post('/register', 'AuthController@register');
 $router->post('/login', 'AuthController@login');
+
+
+// Authenticated Routes
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->get('/ips', 'IpsController@index');
+    $router->get('/ips/{$id}', 'IpsController@find');
+    $router->post('/ips/add', 'IpsController@add');
+    $router->put('/ips/{id}', 'IpsController@modify');
+});

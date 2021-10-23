@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 class UserOperations
 {
 
+    private $user;
+
+    /**
+     * @param User
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     /**
      * Register User
      *
@@ -16,13 +26,12 @@ class UserOperations
      */
     public function register(Request $request)
     {
-        $user = new User;
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
+        $this->user->name = $request->input('name');
+        $this->user->email = $request->input('email');
         $plainPassword = $request->input('password');
-        $user->password = app('hash')->make($plainPassword);
+        $this->user->password = app('hash')->make($plainPassword);
 
-        $user->save();
-        return $user;
+        $this->user->save();
+        return $this->user;
     }
 }
