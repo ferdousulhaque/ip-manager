@@ -3,5 +3,5 @@
     email: string;
     password: string;
     name: string;
-    authdata?: string;
+    token?: string;
 }

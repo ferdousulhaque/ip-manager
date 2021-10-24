@@ -1,9 +1,25 @@
 <div class="card mt-4">
-    <h4 class="card-header">Logged In</h4>
-    <div class="card-body">
-        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <!-- <ul *ngIf="users">
-            <li *ngFor="let user of users">{{user.name}} {{user.email}}</li>
+  <h4 class="card-header">Logged In</h4>
+  <div class="card-body">
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <!-- <ul *ngIf="ips" >
+            <li *ngFor="let ip of ips.ip">{{ip.ip}} {{ip.desc}}</li>
         </ul> -->
-    </div>
+
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" *ngFor="let column of headers">{{column}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ip of ips.ip">
+          <th scope="row">{{ip.id}}</th>
+          <td>{{ip.ip}}</td>
+          <td><a href="#" (click)="popUpForChange(ip.id)">{{ip.desc}}</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

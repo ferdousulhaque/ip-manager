@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { first } from 'rxjs/operators';
-import { User } from '@app/_models';
+import { Ip, IpResponse } from '@app/_models';
+
+import { IpAddressService } from '../ip-address.service';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +13,30 @@ import { User } from '@app/_models';
 export class HomeComponent implements OnInit {
 
   loading = false;
-  users: User[];
+  ips: any;
+  headers: string[]
 
-  constructor() { }
+  constructor(
+    private ipAddressService: IpAddressService
+  ) { 
+    this.headers = [
+      "#",
+      "IP Address",
+      "Description"
+    ]
+  }
 
   ngOnInit(): void {
+    this.loading = true;
+    
+    this.ipAddressService.getAllIps().pipe(first()).subscribe(ips => {
+      this.loading = false;
+      this.ips = ips;
+    });
+  }
+
+  popUpForChange(id: number){
+    alert(id);
   }
 
 }
