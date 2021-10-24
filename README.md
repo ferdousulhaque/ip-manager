@@ -7,7 +7,7 @@ This is a simple application for managing IP Address with aliasing.
 For running this application, you need to have the following application in your host.
 
 - Docker
-- Node
+- Node - Also in Docker if needed
 
 ## Bootstrap
 
@@ -87,6 +87,13 @@ npm install
 
 npx ng build --base-href http://localhost:8081/website/dist/website/
 ```
+
+- via Docker
+
+    ```
+    docker-compose exec -w /app/website node npm install
+    docker-compose exec -w /app/website npx ng build --base-href http://localhost:8081/website/dist/website/
+    ```
 
 ## Run Tests
 

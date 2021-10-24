@@ -47,3 +47,11 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+
+  node:
+    image: node:12.22.7-alpine
+    volumes:
+      - ./:/app
+    working_dir: /app
+    entrypoint: ./run.sh
+    
