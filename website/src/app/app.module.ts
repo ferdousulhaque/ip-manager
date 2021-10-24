@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
+import { ModifyComponent } from './modify/modify.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
+    ModifyComponent,
   ],
   imports: [
     BrowserModule,

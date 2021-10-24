@@ -70,12 +70,7 @@
 									"value": "test2",
 									"type": "text"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/register",
@@ -163,12 +158,7 @@
 									"value": "test2",
 									"type": "text"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/logout",
@@ -209,6 +199,34 @@
 							],
 							"path": [
 								"ips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single IP",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ips/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ips",
+								"1"
 							]
 						}
 					},

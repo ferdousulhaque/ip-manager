@@ -57,4 +57,15 @@ class IpOperations
     {
         return $this->ip->where('parent_id', auth()->user()->id)->get()->toArray();
     }
+
+    /**
+     * Single Ip
+     *
+     * @param int $id
+     * @return Ip
+     */
+    public function one(int $id)
+    {
+        return $this->ip->where('id', $id)->get()->first();
+    }
 }

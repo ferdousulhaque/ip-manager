@@ -35,8 +35,4 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  popUpForChange(id: number){
-    alert(id);
-  }
-
 }

@@ -87,4 +87,25 @@ class IpsController extends Controller
             return response()->json(['message' => 'IP Update Failed!'], 409);
         }
     }
+
+    /**
+     * List IPs
+     * 
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function one(Request $request, $id)
+    {
+        try {
+            $data = new IpOperations(new Ip);
+
+            //return successful response
+            return response()->json(['ip' => $data->one($id), 'message' => 'ONE'], 201);
+        } catch (\Exception $e) {
+            //return error message
+            dd($e->getMessage());
+            return response()->json(['message' => 'Not Found'], 409);
+        }
+    }
 }

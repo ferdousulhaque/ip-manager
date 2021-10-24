@@ -16,4 +16,14 @@ export class IpAddressService {
   getAllIps() {
     return this.http.get<Ip[]>(`${environment.apiUrl}/ips`);
   }
+
+  getSingleIp(id: number){
+    return this.http.get<Ip>(`${environment.apiUrl}/ips/${id}`);
+  }
+
+  modifyIpDesc(id: number, desc: string) {
+    return this.http.put<Ip>(`${environment.apiUrl}/ips/${id}`,{
+      desc: desc
+    });
+  }
 }
