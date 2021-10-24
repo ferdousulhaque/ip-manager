@@ -26,4 +26,8 @@ export class IpAddressService {
       desc: desc
     });
   }
+
+  addIp(add: object) {
+    return this.http.post<Ip>(`${environment.apiUrl}/ips/add`, add);
+  }
 }

@@ -2,10 +2,7 @@
   <h4 class="card-header">Logged In</h4>
   <div class="card-body">
     <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-    <!-- <ul *ngIf="ips" >
-            <li *ngFor="let ip of ips.ip">{{ip.ip}} {{ip.desc}}</li>
-        </ul> -->
-
+    <button type="button" class="btn btn-primary" (click)="addNew()">Add New Ip</button>
 
     <table class="table table-striped">
       <thead>

@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
 import { ModifyComponent } from './modify/modify.component';
+import { AddNewIpComponent } from './add-new-ip/add-new-ip.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ModifyComponent } from './modify/modify.component';
     HomeComponent,
     LoginComponent,
     ModifyComponent,
+    AddNewIpComponent,
   ],
   imports: [
     BrowserModule,

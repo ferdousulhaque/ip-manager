@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { first } from 'rxjs/operators';
 import { Ip, IpResponse } from '@app/_models';
-
 import { IpAddressService } from '../ip-address.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +16,8 @@ export class HomeComponent implements OnInit {
   headers: string[]
 
   constructor(
-    private ipAddressService: IpAddressService
+    private ipAddressService: IpAddressService,
+    private router: Router,
   ) { 
     this.headers = [
       "#",
@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
       this.loading = false;
       this.ips = ips;
     });
+  }
+
+  addNew(){
+    this.router.navigate(['/add']);
   }
 
 }
