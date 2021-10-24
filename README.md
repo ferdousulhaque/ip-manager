@@ -69,16 +69,19 @@ The framework used
 - Next Step is to provide permission to the storage directory and migration for the database 
 
     ``` 
-    docker-compose exec chmod -Rf 777 storage
+    docker-compose exec php chmod -Rf 777 storage
     
     docker-compose exec php php artisan migrate:fresh --seed
     ```
 
 ## Run APIs
-For API import the following Postman JSON file in the directory
+- For API import the following Postman JSON file in the directory
 
-`ip-manager.json`
+    `ip-manager.json`
 
+- Add an environment variable `base_url` to the system for API
+
+    `http://localhost:8081/api`
 ## NPM Install and Build the web packages
 Please run the following command for the website to build from Typescript Compiler to Javascript
 
@@ -92,7 +95,8 @@ npx ng build --base-href http://localhost:8081/website/dist/website/
 
     ```
     docker-compose exec -w /app/website node npm install
-    docker-compose exec -w /app/website npx ng build --base-href http://localhost:8081/website/dist/website/
+
+    docker-compose exec -w /app/website node npx ng build --base-href http://localhost:8081/website/dist/website/
     ```
 
 ## Run Tests
