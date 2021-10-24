@@ -48,7 +48,7 @@ The framework used
     ``` 
     docker-compose exec php composer install
 
-    docker-compose exec php compose dumpautoload
+    docker-compose exec php composer dumpautoload
     ```
 
 - Now generate 2 keys for the application and JWT.
@@ -63,7 +63,7 @@ The framework used
     *NOTE: Lumen does not come with the key:generate CLI command, so this is a easy way to generate.*
     - **JWT Key**
     ```
-    docker-compose exec php artisan jwt:secret
+    docker-compose exec php php artisan jwt:secret
     ```
 
 - Next Step is to provide permission to the storage directory and migration for the database 
