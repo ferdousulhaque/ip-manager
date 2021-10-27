@@ -31,7 +31,7 @@ export class AddNewIpComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.addIpForm.controls; }
+  get f() { this.loading = false; return this.addIpForm.controls; }
 
   onSubmit() {
     this.submitted = true;
