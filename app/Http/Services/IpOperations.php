@@ -4,10 +4,12 @@ namespace App\Http\Services;
 
 use App\Models\Ip;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 
 class IpOperations
 {
-    private $ip;
+    private Ip $ip;
 
     /**
      * @param Ip
@@ -22,15 +24,20 @@ class IpOperations
      *
      * @param Request $request
      * @return Ip
+     * @throws \Exception
      */
-    public function add(Request $request)
+    public function add(Request $request): Ip
     {
-        $this->ip->ip = $request->input('ip');
-        $this->ip->desc = $request->input('desc');
-        $this->ip->parent_id = auth()->user()->id;
+        $ip = new Ip();
+        $ip->ip = $request->input('ip');
+        $ip->desc = $request->input('desc');
+        $ip->parent_id = auth()->user()->id;
 
-        $this->ip->save();
-        return $this->ip;
+        if (!$ip->save()) {
+            throw new \Exception('Failed to save IP address');
+        }
+
+        return $ip->fresh();
     }
 
     /**
@@ -38,34 +45,56 @@ class IpOperations
      *
      * @param Request $request
      * @param int $id
-     * @return Ip
+     * @return bool
+     * @throws ModelNotFoundException
      */
-    public function modify(Request $request, int $id)
+    public function modify(Request $request, int $id): bool
     {
-        $ip = $this->ip->find($id);
+        $ip = $this->ip->where('parent_id', auth()->user()->id)
+                       ->findOrFail($id);
+        
         $ip->desc = $request->input('desc');
-
+        
         return $ip->save();
     }
 
     /**
-     * List Owned Ips
+     * List Owned IPs
      *
-     * @return Ip
+     * @return Collection
      */
-    public function list()
+    public function list(): Collection
     {
-        return $this->ip->where('parent_id', auth()->user()->id)->get()->toArray();
+        return $this->ip->where('parent_id', auth()->user()->id)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
     }
 
     /**
-     * Single Ip
+     * Get Single IP
      *
      * @param int $id
-     * @return Ip
+     * @return Ip|null
+     * @throws ModelNotFoundException
      */
-    public function one(int $id)
+    public function one(int $id): ?Ip
     {
-        return $this->ip->where('id', $id)->get()->first();
+        return $this->ip->where('parent_id', auth()->user()->id)
+                        ->findOrFail($id);
+    }
+
+    /**
+     * Delete IP
+     *
+     * @param int $id
+     * @return bool
+     * @throws ModelNotFoundException
+     */
+    public function delete(int $id): bool
+    {
+        $ip = $this->ip->where('parent_id', auth()->user()->id)
+                       ->findOrFail($id);
+        
+        return $ip->delete();
     }
 }

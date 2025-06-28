@@ -7,4 +7,5 @@ abstract class AuditEnum
     const  LOGIN_ACTIVITY = "login";
     const ADD_IP_ACTIVITY = "add_ip";
     const MODIFY_IP_ACTIVITY = "modify_ip";
+    const DELETE_IP_ACTIVITY = "delete_ip";
 }

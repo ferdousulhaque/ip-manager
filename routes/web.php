@@ -22,7 +22,8 @@ $router->get('/refresh', 'AuthController@refresh');
 // Authenticated Routes
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/ips', 'IpsController@index');
-    $router->get('/ips/{id}', 'IpsController@one');
-    $router->post('/ips/add', 'IpsController@add');
+    $router->get('/ips/{id}', 'IpsController@show');
+    $router->post('/ips', 'IpsController@add');
     $router->put('/ips/{id}', 'IpsController@modify');
+    $router->delete('/ips/{id}', 'IpsController@destroy');
 });
